@@ -1,0 +1,9 @@
+#   Ignore vscode stuff
+.vscode/*
+
+#   Ignore tests and debugging output files
+tests
+*.txt
+
+#   Ignore compiled executable
+rep
