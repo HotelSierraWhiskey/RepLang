@@ -1,4 +1,8 @@
+#include "errors.h"
 #include "debug.h"
+#include "system.h"
+#include "lexer/lexer.h"
+#include "parser/parser.h"
 
 
 
@@ -11,16 +15,32 @@ const char *pdebug_flag = "-pdebug";
 
 debug_t debug;
 
+void parser_trace_callback(const char *caller_name) {
+    #ifdef TRACE
+    printf("%-25s[%-20s\t%s]\n", caller_name, hash_token_type(parser.current_token->type), parser.current_token->contents);
+    #endif
+}
+
 
 extern void set_debug_flags(char **argv) {
+
+    debug.trace_callback = parser_trace_callback;
+
+    printf("\nTarget file: %s\n", system_info.filename);
+    
+    #ifdef TRACE
+    printf("Note: TRACE flag is set\n");
+    #endif
+
     for (char **c = argv; *c != NULL; c++) {
         if (!strcmp(*c, ldebug_flag)) {
             debug.lexer_subsystem = ON;
-            printf("Note: lexer subsystem in debug mode. Generating %s...\n", ldebug_filename);
+            note_debug_output_file("lexer", ldebug_filename);
         }
         if (!strcmp(*c, pdebug_flag)) {
             debug.parser_subsystem = ON;
-            printf("Note: parser subsystem in debug mode. Generating %s...\n", pdebug_filename);
+            note_debug_output_file("parser", pdebug_filename);
         }
     }
+    printf("\n");
 }
