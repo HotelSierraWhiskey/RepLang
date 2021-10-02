@@ -2,36 +2,12 @@
 #define PARSER_H
 
 #include "../lexer/lexer.h"
-#include "grammar.h"
 
 
 typedef struct {
-    token_t list[MAX_EXPR_SIZE];
-    uint8_t size;
-} expr_t;
-
-
-// extern expr_t identifier_expected_types;
-// extern expr_t keyword_expected_types;
-// extern expr_t separator_expected_types;
-// extern expr_t operator_expected_types;
-// extern expr_t relation_expected_types;
-// extern expr_t control_expected_types; 
-// extern expr_t string_literal_expected_types;
-// extern expr_t integer_literal_expected_types;
-
-
-
-
-typedef struct {
-    // expr_t *expecting;
     token_t *current_token;
     token_t *peek_token;
-
-    // expr_t expressions[MAX_ENUM_EXPRS];
-    // uint32_t expr_index;
-    // uint32_t token_index;
-    // bool expr_complete;
+    uint8_t paren_depth;
 } parser_t;
 
 parser_t parser;
@@ -49,9 +25,11 @@ parser_t parser;
 
 extern void run_parser(void);
 
-extern void next_token(void);
+extern void next_token(const char *caller_name);
 
 extern bool check_token(token_type_t type);
+
+extern bool check_tokens(token_type_t *types);
 
 extern bool check_peek(token_type_t type);
 
