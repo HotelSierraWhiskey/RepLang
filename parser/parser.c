@@ -12,6 +12,12 @@ void rule_statement(void) {
         rule_expression();
     }
 
+    else if (check_token(STATEMENT_SHOW)) {
+        emit("print");
+        next_token(__func__);
+        rule_expression();
+    }
+
     //  let statement
     else if (check_token(STATEMENT_LET)) {
         next_token(__func__);
@@ -89,6 +95,7 @@ bool is_comparison_operator(void) {
 
 
 void rule_comparison(void) {
+    // emit(parser.current_token->contents);
     rule_expression();
 
     if (is_comparison_operator()) {
@@ -115,6 +122,7 @@ void rule_expression(void) {
     }
 
     while (is_comparison_operator()) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
@@ -165,9 +173,8 @@ void rule_primary(void) {
 void rule_separator(void) {
     match(SEPARATOR);
     next_token(__func__);
-    // while (check_token(SEPARATOR))
-    //     emit(parser.current_token->contents);
-    //     next_token(__func__);
+    while (check_token(SEPARATOR))
+        next_token(__func__);
 }
 
 

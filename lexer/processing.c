@@ -80,8 +80,8 @@ void _check_keyword_processing_complete(void) {
             build_token(STATEMENT_INPUT);
             break;
         
-        case STATEMENT_PRINT:
-            build_token(STATEMENT_PRINT);
+        case STATEMENT_SHOW:
+            build_token(STATEMENT_SHOW);
             break;
     }
 }

@@ -11,11 +11,11 @@ lexer_t *lexer;
 void run_lexical_analysis(void) {
     FILE *fp;
     char line_buffer[MAX_LINE_BUFFER_SIZE]; 
-    fp = fopen(system_info.filename, "a+");
+    fp = fopen(system_info.target_filename, "a+");
     fprintf(fp, "%s", "\n");
     
 
-    fp = fopen(system_info.filename, "r");
+    fp = fopen(system_info.target_filename, "r");
 
     while (fgets(line_buffer, MAX_LINE_BUFFER_SIZE, fp) != NULL) {
         process_line(line_buffer);
@@ -127,7 +127,7 @@ hash_t key_repr_hash_table[] = {
     {STATEMENT_GOTO,        "STATEMENT_GOTO"},
     {STATEMENT_LET,         "STATEMENT_LET"},
     {STATEMENT_INPUT,       "STATEMENT_INPUT"},
-    {STATEMENT_PRINT,       "STATEMENT_PRINT"},
+    {STATEMENT_SHOW,       "STATEMENT_SHOW"},
     {COMPARISON_EQUIV,      "COMPARISON_EQUIV"},
     {COMPARISON_NOT_EQ,     "COMPARISON_NOT_EQ"},
     {COMPARISON_GT_EQ,      "COMPARISON_GT_EQ"},
@@ -167,7 +167,7 @@ hash_t key_lexeme_hash_table[] = {
     {STATEMENT_GOTO,        GOTO},
     {STATEMENT_LET,         LET},
     {STATEMENT_INPUT,       INPUT},
-    {STATEMENT_PRINT,       PRINT},
+    {STATEMENT_SHOW,        SHOW},
     {COMPARISON_EQUIV,      EQUIV},
     {COMPARISON_NOT_EQ,     NOT_EQ},
     {COMPARISON_GT_EQ,      GT_EQ},

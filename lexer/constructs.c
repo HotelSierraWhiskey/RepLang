@@ -1,7 +1,7 @@
 #include "constructs.h"
 
 
-char *keywords[] = {IF, THEN, ELSE, ENDIF, WHILE, REDO, ENDWHILE, LABEL, GOTO, LET, INPUT, PRINT};
+char *keywords[] = {IF, THEN, ELSE, ENDIF, WHILE, REDO, ENDWHILE, LABEL, GOTO, LET, INPUT, SHOW};
 
 char *comparisons[] = {EQUIV, NOT_EQ, GT_EQ, LT_EQ, GT, LT};
 

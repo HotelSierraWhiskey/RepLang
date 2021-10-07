@@ -44,7 +44,7 @@ extern char *comparisons[];
 #define GOTO "goto"
 #define LET "let"
 #define INPUT "input"
-#define PRINT "print"
+#define SHOW "show"
 extern char *statements[];
 
 // STRING LITERAL
