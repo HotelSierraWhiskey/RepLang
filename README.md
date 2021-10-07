@@ -21,7 +21,13 @@ This will produce an ```out.py``` file. Yes, that's right, Replang compiles to p
 ```python3 out.py```
 
 And wallah. You've just compiled and executed your first rep program.
+<br>
+<br>
+<u>Note:</u> To compile your .rep file with the lexer and/ or parser subsystem in debug mode add the ```-ldebug``` and/ or ```-pdebug``` flag. For example:
 
+ ```./rep test.rep -ldebug -pdebug```
+<br>
+<br>
 ***
 
 ## Who uses Replang?
@@ -29,6 +35,7 @@ And wallah. You've just compiled and executed your first rep program.
 Nobody. Just me.
 
 ## Documentation
+<br>
 
 <u>**Basic Types**</u>
 
