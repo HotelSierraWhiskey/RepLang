@@ -1,9 +1,9 @@
 cc=GCC
-CFLAGS=-Wall
+CFLAGS=-DPDEBUG
 
 #	Compiles the entire project
 compile:
-	gcc -DTRACE ./lexer/lexer.c ./lexer/lexer_subsystem.c ./lexer/handlers.c ./lexer/processing.c ./lexer/constructs.c ./lexer/utils.c \
+	gcc $(CFLAGS) ./lexer/lexer.c ./lexer/lexer_subsystem.c ./lexer/handlers.c ./lexer/processing.c ./lexer/constructs.c ./lexer/utils.c \
 	./parser/parser.c ./parser/parse_utils.c \
 	./codegen/codegen.c \
 	debug.c system.c errors.c main.c -o rep
