@@ -26,7 +26,7 @@ extern void set_debug_flags(char **argv) {
 
     debug.trace_callback = parser_trace_callback;
 
-    printf("\nTarget file: %s\n", system_info.filename);
+    printf("\nTarget file: %s\n", system_info.target_filename);
     
     #ifdef TRACE
     note_trace_flag_set();
