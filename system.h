@@ -3,7 +3,8 @@
 
 
 typedef struct {
-    char *filename;
+    char *target_filename;
+    char *out_filename;
 } system_info_t;
 
 extern system_info_t system_info;
