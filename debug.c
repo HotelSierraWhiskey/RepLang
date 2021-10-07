@@ -16,7 +16,7 @@ const char *pdebug_flag = "-pdebug";
 debug_t debug;
 
 void parser_trace_callback(const char *caller_name) {
-    #ifdef TRACE
+    #ifdef PDEBUG
     printf("%-25s[token_type: %-18s\tcontents: %s]\n", caller_name, hash_token_type(parser.current_token->type), parser.current_token->contents);
     #endif
 }
