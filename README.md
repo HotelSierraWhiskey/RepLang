@@ -2,13 +2,13 @@
 
 ## What is this?
 
-The Replang Compiler is the first and only implementation of the humble Rep programming language. All of its components are written in C
+The Replang Compiler is the first and only implementation of the humble Rep programming language.
 
 ***
 
 ## How does it work?
 
-To compile the compiler source code use the makefile provided. The command 
+To compile the replang source code use the makefile provided. The command 
 
 ```make compile``` 
 
@@ -16,7 +16,7 @@ Will generate the ```rep``` executable which can be run against a .rep file. Ass
 
 ```./rep test.rep```
 
-This will produce an ```out.py``` file. Yes, that's right, Replang compiles to python. Python 3 to be exact. And of course you can run your program with the command 
+This will produce an ```out.py``` file. Yes, that's right, Replang compiles to python. Hence, you can run your program with the command 
 
 ```python3 out.py```
 
@@ -30,4 +30,39 @@ Nobody. Just me.
 
 ## Documentation
 
-Documentation coming soon.
+<u>**Basic Types**</u>
+
+Replang supports the following basic data types:
+
+- Integers
+- Floating point numbers
+- Strings
+
+<u>**The ```show``` Builtin Function:**</u>
+
+The builtin function ```show``` takes one expression type parameter and displays the resulting evaluation to the console.
+
+Examples:
+
+```javascript
+show("Hello, world!");
+```
+
+```javascript
+show(3.14159 * (r * r));
+```
+
+
+<u>**Identifiers:**</u>
+
+Identifiers in Rep require a ```let``` binding and may not begin with a number. Underscores are permitted in identifier names, but other special characters are not.
+
+Examples:
+
+```javascript
+let update_time = 86400;
+``` 
+
+```javascript
+let _filename = "secret.txt;"
+```
