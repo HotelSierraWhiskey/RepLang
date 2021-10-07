@@ -1,4 +1,5 @@
 #include "../debug.h"
+#include "../codegen/codegen.h"
 #include "parser.h"
 
 
@@ -6,6 +7,7 @@ void rule_statement(void) {
     // Naked comparison, identifier, or literal expression
     if (check_token(IDENTIFIER) || check_token(INTEGER_LITERAL) || \
         check_token(FLOAT_LITERAL) || check_token(STRING_LITERAL)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
@@ -13,26 +15,34 @@ void rule_statement(void) {
     //  let statement
     else if (check_token(STATEMENT_LET)) {
         next_token(__func__);
+        emit(parser.current_token->contents);
         match(IDENTIFIER);
+        next_token(__func__);
+        emit(parser.current_token->contents);
+        match(RELATION);
         next_token(__func__);
         rule_expression();
     }
 
     // if -> then -> endif
     else if (check_token(STATEMENT_IF)) {
+        emit("if ");
         next_token(__func__);
         rule_comparison();
 
         match(STATEMENT_THEN);
+        next_token(__func__);
 
         while (!check_token(STATEMENT_ENDIF)) {
             rule_statement();
         }
         match(STATEMENT_ENDIF);
+        next_token(__func__);
     }
 
     // while -> endwhile
     else if (check_token(STATEMENT_WHILE)) {
+        emit("while ");
         next_token(__func__);
         rule_comparison();
 
@@ -40,26 +50,31 @@ void rule_statement(void) {
             rule_statement();
         }
         match(STATEMENT_ENDWHILE);
+        next_token(__func__);
     }
     else if (check_token(STATEMENT_LABEL)) {
         next_token(__func__);
         match(IDENTIFIER);
+        next_token(__func__);
     }
 
     else if (check_token(STATEMENT_GOTO)) {
         next_token(__func__);
         match(IDENTIFIER);
+        next_token(__func__);
     }
 
     // Balance parens
-    // next_token(__func__);
     while (parser.paren_depth > 0) {
         rule_expression();
+        emit(")");
         match(CONTROL_CLOSE_PAREN);
+        next_token(__func__);
         parser.paren_depth--;
     }
 
     rule_separator();
+    emit("\n");
 }
 
 
@@ -77,10 +92,12 @@ void rule_comparison(void) {
     rule_expression();
 
     if (is_comparison_operator()) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
     while (is_comparison_operator()) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
@@ -92,6 +109,7 @@ void rule_expression(void) {
 
     while (check_token(CONTROL_OPEN_PAREN)) {
         parser.paren_depth++;
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
@@ -102,6 +120,7 @@ void rule_expression(void) {
     }
 
     while (check_token(OPERATOR_PLUS) || check_token(OPERATOR_MINUS)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_term();
     }
@@ -109,8 +128,13 @@ void rule_expression(void) {
 
 
 void rule_term(void) {
+    if (check_token(STRING_LITERAL)) {
+        emit(parser.current_token->contents);
+        next_token(__func__);
+    }
     rule_unary();
     while (check_token(OPERATOR_MULTIPLY) || check_token(OPERATOR_DIVIDE)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_unary();
     }
@@ -119,6 +143,7 @@ void rule_term(void) {
 
 void rule_unary(void) {
     if (check_token(OPERATOR_PLUS) || check_token(OPERATOR_MINUS)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
     }
     rule_primary();
@@ -127,9 +152,11 @@ void rule_unary(void) {
 
 void rule_primary(void) {
     if (check_token(INTEGER_LITERAL) || check_token(FLOAT_LITERAL)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
     }
     else if (check_token(IDENTIFIER)) {
+        emit(parser.current_token->contents);
         next_token(__func__);
     }
 }
@@ -137,8 +164,10 @@ void rule_primary(void) {
 
 void rule_separator(void) {
     match(SEPARATOR);
-    while (check_token(SEPARATOR))
-        next_token(__func__);
+    next_token(__func__);
+    // while (check_token(SEPARATOR))
+    //     emit(parser.current_token->contents);
+    //     next_token(__func__);
 }
 
 
@@ -148,8 +177,6 @@ void run_parser(void) {
     parser.peek_token = lexer->token_table + 1;
 
     while (parser.current_token->contents != NULL) {
-        // printf("%s\n", parser.current_token->contents);
-        // next_token(__func__);
         rule_statement();
     }
 }
