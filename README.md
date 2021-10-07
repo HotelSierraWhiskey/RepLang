@@ -64,5 +64,5 @@ let update_time = 86400;
 ``` 
 
 ```javascript
-let _filename = "secret.txt;"
+let _filename = "secret.txt";
 ```
