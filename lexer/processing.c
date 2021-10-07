@@ -39,6 +39,10 @@ void _check_keyword_processing_complete(void) {
         case STATEMENT_IF:
             build_token(STATEMENT_IF);
             break;
+        
+        case STATEMENT_THEN:
+            build_token(STATEMENT_THEN);
+            break;
 
         case STATEMENT_ELSE:
             build_token(STATEMENT_ELSE);
@@ -74,6 +78,10 @@ void _check_keyword_processing_complete(void) {
 
         case STATEMENT_INPUT:
             build_token(STATEMENT_INPUT);
+            break;
+        
+        case STATEMENT_PRINT:
+            build_token(STATEMENT_PRINT);
             break;
     }
 }

@@ -8,7 +8,6 @@
 #include "constructs.h"
 
 
-#define NUM_TOKEN_TYPES 8
 #define MAX_TOKENS 512
 #define MAX_LEXEME_SIZE 512
 
@@ -18,6 +17,7 @@ typedef enum {
     SEPARATOR,
 
     STATEMENT_IF,
+    STATEMENT_THEN,
     STATEMENT_ELSE,
     STATEMENT_ENDIF,
     STATEMENT_WHILE,
@@ -27,6 +27,7 @@ typedef enum {
     STATEMENT_GOTO,
     STATEMENT_LET,
     STATEMENT_INPUT,
+    STATEMENT_PRINT,
 
     COMPARISON_EQUIV,
     COMPARISON_NOT_EQ,

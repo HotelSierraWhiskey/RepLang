@@ -34,6 +34,7 @@ extern char *comparisons[];
 
 // STATEMENTS
 #define IF "if"
+#define THEN "then"
 #define ELSE "else"
 #define ENDIF "endif"
 #define WHILE "while"
@@ -43,6 +44,7 @@ extern char *comparisons[];
 #define GOTO "goto"
 #define LET "let"
 #define INPUT "input"
+#define PRINT "print"
 extern char *statements[];
 
 // STRING LITERAL
