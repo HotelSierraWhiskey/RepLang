@@ -1,9 +1,12 @@
 #   Ignore vscode stuff
 .vscode/*
 
-#   Ignore tests and debugging output files
+#   Ignore tests and debugger output files
 tests
 *.txt
 
 #   Ignore compiled executable
 rep
+
+#   Ignore generated .py files
+*.py
