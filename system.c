@@ -13,7 +13,8 @@ void system_init(char **argv) {
         error_file_not_found();
         exit(0);
     }
-    system_info.filename = argv[1];
+    system_info.target_filename = argv[1];
+    system_info.out_filename = "./out.py";
     set_debug_flags(argv);
     lexer_subsystem_init();
     emitter_init();

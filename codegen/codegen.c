@@ -1,4 +1,5 @@
 #include "../includes.h"
+#include "../system.h"
 #include "../lexer/lexer.h"
 #include "../parser/parser.h"
 #include "codegen.h"
@@ -34,7 +35,12 @@ void emitter_init(void) {
 
 void run_codegen(void) {
     FILE *fp;
-    fp = fopen("./out.py", "a+");
+
+    if (access(system_info.out_filename, F_OK) == 0) {
+        remove(system_info.out_filename);
+    }
+
+    fp = fopen(system_info.out_filename, "a+");
 
     char *strip = strtok(emitter.buffer, "\n");
 
