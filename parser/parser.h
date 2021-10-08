@@ -4,10 +4,20 @@
 #include "../lexer/lexer.h"
 
 
+typedef enum {
+    PARSER_WAITING_STATE,
+    PARSER_PROCESSING_LOOP_STATEMENT_STATE,
+    PARSER_PROCESSING_ENDLOOP_STATEMENT_STATE
+} parser_state_t;
+
+
+
 typedef struct {
     token_t *current_token;
     token_t *peek_token;
     uint8_t paren_depth;
+    uint8_t tab_depth;
+    parser_state_t state;
 } parser_t;
 
 parser_t parser;

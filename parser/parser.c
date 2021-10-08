@@ -70,6 +70,37 @@ void rule_statement(void) {
         next_token(__func__);
     }
 
+    // loop statement
+    else if (check_token(STATEMENT_LOOP)) {
+        parser.state = PARSER_PROCESSING_LOOP_STATEMENT_STATE;
+        emit("for ");
+        next_token(__func__);
+        match(CONTROL_OPEN_PAREN);
+        parser.paren_depth++;
+        parser.tab_depth++;
+        next_token(__func__);
+        match(INTEGER_LITERAL);
+        char *iter_var = malloc(sizeof(char) * strlen(parser.current_token->contents));
+        strcpy(iter_var, parser.current_token->contents);
+        next_token(__func__);
+
+        match(IDENTIFIER);
+        char *loop_var = malloc(sizeof(char) * strlen(parser.current_token->contents));
+        strcpy(loop_var, parser.current_token->contents);
+
+        emit(loop_var);
+        emit(" in range(");
+        emit(iter_var);
+        next_token(__func__);
+    }
+
+    else if (check_token(STATEMENT_ENDLOOP)) {
+        parser.state = PARSER_PROCESSING_ENDLOOP_STATEMENT_STATE;
+        parser.tab_depth--;
+        next_token(__func__);
+    }
+
+
     // Balance parens
     while (parser.paren_depth > 0) {
         rule_expression();
@@ -79,8 +110,18 @@ void rule_statement(void) {
         parser.paren_depth--;
     }
 
+    if (parser.state == PARSER_PROCESSING_LOOP_STATEMENT_STATE) {
+        emit(":");
+    }
+
     rule_separator();
     emit("\n");
+
+    for (uint8_t i = 0; i < parser.tab_depth; i++) {
+        emit("\t");
+    }
+
+    parser.state = PARSER_WAITING_STATE;
 }
 
 
@@ -95,7 +136,6 @@ bool is_comparison_operator(void) {
 
 
 void rule_comparison(void) {
-    // emit(parser.current_token->contents);
     rule_expression();
 
     if (is_comparison_operator()) {
@@ -182,6 +222,8 @@ void run_parser(void) {
 
     parser.current_token = lexer->token_table;
     parser.peek_token = lexer->token_table + 1;
+
+    parser.state = WAITING_STATE;
 
     while (parser.current_token->contents != NULL) {
         rule_statement();
