@@ -92,7 +92,7 @@ endloop;
 ```javascript
 loop(10 i);
 loop(10 j);
-show(i + j)
+show(i + j);
 endloop;
 endloop;
 show("done");
