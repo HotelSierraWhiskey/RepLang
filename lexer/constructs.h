@@ -45,6 +45,8 @@ extern char *comparisons[];
 #define LET "let"
 #define INPUT "input"
 #define SHOW "show"
+#define LOOP "loop"
+#define ENDLOOP "endloop"
 extern char *statements[];
 
 // STRING LITERAL
@@ -55,6 +57,7 @@ extern char *statements[];
 #define CLOSE_PAREN ")"
 #define OPEN_BRACKET "["
 #define CLOSE_BRACKET "]"
+#define COMMA ","
 extern char *controls[];
 
 // SPECIAL CHARS

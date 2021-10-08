@@ -20,6 +20,10 @@ void check_control_processing_complete(void) {
         case CONTROL_CLOSE_BRACKET:
             build_token(CONTROL_CLOSE_BRACKET);
             break;
+        
+        case CONTROL_COMMA:
+            build_token(CONTROL_COMMA);
+            break;
     }
 }
 
@@ -82,6 +86,14 @@ void _check_keyword_processing_complete(void) {
         
         case STATEMENT_SHOW:
             build_token(STATEMENT_SHOW);
+            break;
+
+        case STATEMENT_LOOP:
+            build_token(STATEMENT_LOOP);
+            break;
+        
+        case STATEMENT_ENDLOOP:
+            build_token(STATEMENT_ENDLOOP);
             break;
     }
 }
