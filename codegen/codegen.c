@@ -5,8 +5,8 @@
 #include "codegen.h"
 
 
-#define BUFFER_INCREMENT_SIZE 256
-#define MAX_LINE_LENGTH 512
+#define BUFFER_INCREMENT_SIZE 1024
+#define MAX_LINE_LENGTH 1024
 
 
 emitter_t emitter;
