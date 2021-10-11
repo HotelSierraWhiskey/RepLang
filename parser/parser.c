@@ -5,7 +5,7 @@
 
 void rule_statement(void) {
     // Naked comparison, identifier, or literal expression
-    if (check_token(IDENTIFIER) || check_token(INTEGER_LITERAL) || \
+    if (check_token(INTEGER_LITERAL) || \
         check_token(FLOAT_LITERAL) || check_token(STRING_LITERAL)) {
         emit(parser.current_token->contents);
         next_token(__func__);
@@ -21,11 +21,26 @@ void rule_statement(void) {
     //  let statement
     else if (check_token(STATEMENT_LET)) {
         next_token(__func__);
+
         emit(parser.current_token->contents);
         match(IDENTIFIER);
+        add_identifier(parser.current_token->contents);
         next_token(__func__);
+
         emit(parser.current_token->contents);
         match(RELATION);
+        next_token(__func__);
+
+        rule_expression();
+    }
+
+    // variable reassignment expression
+    else if (check_token(IDENTIFIER) && is_identifier()) {
+        emit(parser.current_token->contents);
+        next_token(__func__);
+
+        match(RELATION);
+        emit(parser.current_token->contents);
         next_token(__func__);
         rule_expression();
     }
@@ -109,6 +124,7 @@ void rule_statement(void) {
         next_token(__func__);
         parser.paren_depth--;
     }
+
 
     if (parser.state == PARSER_PROCESSING_LOOP_STATEMENT_STATE) {
         emit(":");

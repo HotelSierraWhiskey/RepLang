@@ -7,8 +7,14 @@
 typedef enum {
     PARSER_WAITING_STATE,
     PARSER_PROCESSING_LOOP_STATEMENT_STATE,
-    PARSER_PROCESSING_ENDLOOP_STATEMENT_STATE
+    PARSER_PROCESSING_ENDLOOP_STATEMENT_STATE,
 } parser_state_t;
+
+
+typedef struct {
+    char **identifiers;
+    uint32_t num_entries;
+} identifier_bank_t;
 
 
 
@@ -18,6 +24,7 @@ typedef struct {
     uint8_t paren_depth;
     uint8_t tab_depth;
     parser_state_t state;
+    identifier_bank_t identifier_bank;
 } parser_t;
 
 parser_t parser;
@@ -35,6 +42,9 @@ extern bool check_peek(token_type_t type);
 
 extern void match(token_type_t type);
 
+extern void add_identifier(const char *name);
+
+extern bool is_identifier(void);
 
 
 

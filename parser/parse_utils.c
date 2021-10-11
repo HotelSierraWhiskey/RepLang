@@ -34,5 +34,24 @@ void match(token_type_t type) {
         error_parser_token_mismatch(type);
         exit(0);
     }
-    // next_token(__func__);
+}
+
+
+void add_identifier(const char *name) {
+    if (!parser.identifier_bank.identifiers) {
+        parser.identifier_bank.identifiers = malloc(sizeof(char **) + 17); // <-- why 17?
+    }
+    *(parser.identifier_bank.identifiers + parser.identifier_bank.num_entries) = malloc(strlen(name));
+    strcpy(*(parser.identifier_bank.identifiers + parser.identifier_bank.num_entries), name);
+    parser.identifier_bank.num_entries++;
+}
+
+
+bool is_identifier(void) {
+    for (uint32_t i = 0; i < parser.identifier_bank.num_entries; i++) {
+        if (!strcmp(parser.current_token->contents, *(parser.identifier_bank.identifiers + i))) {
+            return true;
+        }
+    }
+    return false;
 }
